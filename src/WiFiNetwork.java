@@ -16,7 +16,7 @@ class WiFiNetwork {
 	private String networkPassword;
 	
 	// A router has a list of authenticated devices that have credentials to access the network
-	private ArrayList networkDevices = new ArrayList();
+	private ArrayList<MobileDevice> networkDevices = new ArrayList<MobileDevice>();
 	
 	
 	// Default configuration of a WifiNetwork object
