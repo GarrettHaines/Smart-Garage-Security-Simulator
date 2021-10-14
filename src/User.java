@@ -20,6 +20,7 @@ class User {
 		// Ask for the User's name
 		System.out.print("Please enter your first name: ");
 		firstName = input.next();
+		System.out.println("Welcome, " + firstName + "!");
 		
 		// Create User's objects
 		device = new MobileDevice(firstName);
@@ -39,6 +40,10 @@ class User {
 		System.out.println("- a programmable radio transmitter");
 		System.out.println("- a Smart Garage door");
 		System.out.println("- a regular, dumb garage door\n");
+		
+		System.out.print("Enter any key to continue... ");
+		String discard = input.next();
+		System.out.println();
 		
 		device.test();
 		smart.test();
