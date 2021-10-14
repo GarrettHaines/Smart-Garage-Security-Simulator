@@ -1,0 +1,5 @@
+class RadioTransmitter {
+	public RadioTransmitter() {
+	}
+	
+}
