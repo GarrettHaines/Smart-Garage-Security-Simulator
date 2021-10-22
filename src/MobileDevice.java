@@ -7,13 +7,8 @@ class MobileDevice {
 	public MobileDevice(String firstName) {
 		addressMAC = "13:10:d9:1f:e5:03";
 		addressIP = "192.168.1.154";
-		name = Character.toUpperCase(firstName.charAt(0)) + firstName.substring(1, firstName.length()) + "'s Mobile Device";
+		name = firstName + "'s Mobile Device";
 		app = new Authenticator(firstName);
-	}
-	
-	public void test() {
-		System.out.println(name + " begins to ring");
-		app.test();
 	}
 	
 }

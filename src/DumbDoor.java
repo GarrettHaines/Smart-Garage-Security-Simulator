@@ -8,7 +8,7 @@ class DumbDoor {
 	
 	public DumbDoor(String firstName) {
 		frequency = 375;  // in MHz
-		name = Character.toUpperCase(firstName.charAt(0)) + firstName.substring(1, firstName.length()) + "'s Dumb Door";
+		name = firstName + "'s Dumb Door";
 	}
 	
 }

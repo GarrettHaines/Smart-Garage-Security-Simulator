@@ -23,7 +23,7 @@ class WiFiNetwork {
 	public WiFiNetwork(String firstName) {
 		addressMAC = "37:b0:69:1e:45:01";
 		addressIP = "192.168.1.203";
-		networkName = Character.toUpperCase(firstName.charAt(0)) + firstName.substring(1, firstName.length()) + "'s WiFi Network";
+		networkName = firstName + "'s WiFi Network";
 		networkPassword = "REVISE LATER";
 	}
 	

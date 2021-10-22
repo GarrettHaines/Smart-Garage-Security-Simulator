@@ -1,26 +1,32 @@
+import graphics.*;
+
 class Driver {
 	public static void main(String[] args) {
-		printMenu();
-		User me = new User();
-		me.test();
-	}
-	
-	public static void printMenu() {
-		for (int i = 0; i < 75; i++)
-			System.out.println();
+		// Menu initialized (graphics package)
+		Menu menu = new Menu();
 		
-		System.out.println("   _____ __  __          _____ _______     _____          _____            _____ ______ \r\n"
-				+ "  / ____|  \\/  |   /\\   |  __ \\__   __|   / ____|   /\\   |  __ \\     /\\   / ____|  ____|\r\n"
-				+ " | (___ | \\  / |  /  \\  | |__) | | |     | |  __   /  \\  | |__) |   /  \\ | |  __| |__   \r\n"
-				+ "  \\___ \\| |\\/| | / /\\ \\ |  _  /  | |     | | |_ | / /\\ \\ |  _  /   / /\\ \\| | |_ |  __|  \r\n"
-				+ "  ____) | |  | |/ ____ \\| | \\ \\  | |     | |__| |/ ____ \\| | \\ \\  / ____ \\ |__| | |____ \r\n"
-				+ " |_____/|_|  |_/_/    \\_\\_|  \\_\\ |_|      \\_____/_/    \\_\\_|  \\_\\/_/    \\_\\_____|______|\r\n"
-				+ "                                                                                        \r");
-		System.out.println("         ___                  _ _          ___ _           _      _           \r\n"
-				+ "        / __| ___ __ _  _ _ _(_) |_ _  _  / __(_)_ __ _  _| |__ _| |_ ___ _ _ \r\n"
-				+ "        \\__ \\/ -_) _| || | '_| |  _| || | \\__ \\ | '  \\ || | / _` |  _/ _ \\ '_|\r\n"
-				+ "        |___/\\___\\__|\\_,_|_| |_|\\__|\\_, | |___/_|_|_|_\\_,_|_\\__,_|\\__\\___/_|  \r\n"
-				+ "                                    |__/                                      \n\n\n--");
+		// Smart Garage Security Simulator menu is printed
+		menu.refresh();
+		menu.title();
+		
+		// User "user" created
+		User user = new User();
+		menu.pause();
+
+		// Menu is looped after User creation process until user requests to terminate program
+		while(true) {
+			menu.refresh();
+			menu.title();
+			
+			// User is prompted for menu selection, 
+			menu.select();
+			user.go(menu.getSelection());
+			
+			// 1) Simulate Smart Garage Security System demonstration
+			// 2) Simulate attack against a regular, dumb garage door
+			// 3) Exit program
+		}
+		
 	}
 	
 }
