@@ -1,4 +1,6 @@
-class SmartDoor {
+package components.smart;
+
+public class SmartDoor {
 	private String name;
 	private WiFiNetwork wifi;
 	

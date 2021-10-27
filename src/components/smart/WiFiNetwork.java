@@ -1,6 +1,8 @@
+package components.smart;
+
 import java.util.ArrayList;
 
-class WiFiNetwork {
+public class WiFiNetwork {
 	// A router has a given MAC address that will never change
 	// This is used to identify the router itself
 	private String addressMAC;

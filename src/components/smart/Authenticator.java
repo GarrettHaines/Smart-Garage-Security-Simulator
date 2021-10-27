@@ -1,4 +1,6 @@
-class Authenticator {
+package components.smart;
+
+public class Authenticator {
 	private String name;
 	
 	public Authenticator(String firstName) {

@@ -1,5 +1,0 @@
-class RadioTransmitter {
-	public RadioTransmitter() {
-	}
-	
-}

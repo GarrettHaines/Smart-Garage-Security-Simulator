@@ -1,6 +1,8 @@
+package components.dumb;
+
 import java.util.Scanner;
 
-class DumbDoor {
+public class DumbDoor {
 	Scanner input = new Scanner(System.in);
 	private int frequency;
 	private int passcode;

@@ -1,4 +1,6 @@
-class MobileDevice {
+package components.smart;
+
+public class MobileDevice {
 	private String addressMAC;
 	private String addressIP;
 	private String name;

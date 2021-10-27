@@ -1,6 +1,8 @@
 import graphics.*;
+import user.Director;
+import user.User;
 
-class Driver {
+public class Driver {
 	public static void main(String[] args) {
 		// Menu initialized (graphics package)
 		Menu menu = new Menu();
@@ -11,6 +13,10 @@ class Driver {
 		
 		// User "user" created
 		User user = new User();
+		
+		// Create a Director to guide the user through the program
+		Director director = new Director(user);
+		
 		menu.pause();
 
 		// Menu is looped after User creation process until user requests to terminate program
@@ -20,7 +26,7 @@ class Driver {
 			
 			// User is prompted for menu selection, 
 			menu.select();
-			user.go(menu.getSelection());
+			director.go(menu.getSelection());
 			
 			// 1) Simulate Smart Garage Security System demonstration
 			// 2) Simulate attack against a regular, dumb garage door

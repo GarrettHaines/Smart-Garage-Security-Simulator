@@ -14,12 +14,10 @@ public class Menu {
 	// pause() pauses the program until the user is ready to continue
 	public void pause() {
 		System.out.print("\nEnter any key to continue... ");
-
-		@SuppressWarnings("unused")
 		String discard = input.nextLine();
 	}
 
-	// refresh() clears the terminal window
+	// refresh() clears the console window by pushing old text
 	public void refresh() {
 		for (int i = 0; i < 100; i++)
 			System.out.println();
@@ -28,8 +26,8 @@ public class Menu {
 	// Allows the User to chose to simulate the Smart Door Security System or
 	// attempt to breach the dumb door's security system
 	public void select() {
-		System.out.println("1) Simulate Smart Garage Security System demonstration");
-		System.out.println("2) Simulate attack against a regular, dumb garage door");
+		System.out.println("1) Simulate a Smart Garage Security System Demonstration");
+		System.out.println("2) Simulate a Garage Security System Attack");
 		System.out.println("3) Exit program\n");
 		System.out.print("Please enter your selection: ");
 		selection = input.nextInt();
