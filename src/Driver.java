@@ -4,9 +4,15 @@ import user.User;
 
 public class Driver {
 	public static void main(String[] args) {
+<<<<<<< HEAD
 		// Core and Menu graphics initialized from the graphics package
 		Core core = new Core();
 		Menu menu = new Menu(core);
+=======
+		// Testing Simple Comment change to make sure I can push to Repo
+		// Menu initialized (graphics package)
+		Menu menu = new Menu();
+>>>>>>> 141131566a4a3f47d40e68a6a58431e95194db13
 		
 		core.refresh();
 		
