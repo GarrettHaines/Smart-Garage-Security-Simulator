@@ -1,17 +1,8 @@
 package graphics;
 
-import user.*;
-import java.util.Scanner;
-
-public class SmartSimulation {
-	User user;
-	Smartphone smartphone;
-	Scanner input = new Scanner(System.in);
-	
-	public SmartSimulation(User user) {
-		this.user = user;
-		smartphone = new Smartphone(user.getName());
-	}
+public class SmartSimulation extends Core {
+	private String networkName = getName() + "'s Network";
+	private String password;
 
 	// house() prints Smart Garage Security System simulation's house art
 	public void house() {
@@ -36,29 +27,125 @@ public class SmartSimulation {
 	public void setupWiFi() {
 		refresh();
 		house();
-		System.out.println("\n--\nWelcome home, " + user.getName() + "!");
-		pause();
+		System.out.println("\n\n--\n\nWelcome home, " + getName() + "!\n");
+		waitForUser();
 		refresh();
 		house();
-		System.out.println("\n--\nFirst, let's set up your WiFi router.");
-		pause();
+		System.out.println("\n\n--\n\nFirst, let's set up your WiFi router.\n");
+		waitForUser();
 		refresh();
-		smartphone.activate();
-		pause();
+		activate();
+	}
+	
+	public void activate() {
+		System.out.println(" .-------------------------------.\r\n" + "|                o                |\r\n"
+				+ "| .-----------------------------. |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| '-----------------------------' |\r\n" + "|                _                |\r\n"
+				+ "|              ( _ )              |\r\n" + " '-------------------------------'");
+		
+		pause(1);
+		refresh();
+
+		System.out.println(" .-------------------------------.\r\n" + "|                o                |\r\n"
+				+ "| .-----------------------------. |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |               .:'           | |\r\n" + "| |           __ :'__           | |\r\n"
+				+ "| |        .'`__`-'__``.        | |\r\n" + "| |       :__________.-'        | |\r\n"
+				+ "| |       :_________:           | |\r\n" + "| |        :_________`-;        | |\r\n"
+				+ "| |         `.__.-.__.'         | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| '-----------------------------' |\r\n" + "|                _                |\r\n"
+				+ "|              ( _ )              |\r\n" + " '-------------------------------'");
+		
+		pause(3);
+		refresh();
+
+		System.out.println(" .-------------------------------.\r\n" + "|                o                |\r\n"
+				+ "| .-----------------------------. |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| '-----------------------------' |\r\n" + "|                _                |\r\n"
+				+ "|              ( _ )              |\r\n" + " '-------------------------------'");
+
+		pause(1);
+		refresh();
+
+		System.out.print(" .-------------------------------.\r\n" + "|                o                |\r\n"
+				+ "| .-----------------------------. |\r\n" + "| |                             | |\r\n"
+				+ "| |" + phoneNameLine() + "| |\r\n" + "| |  --                         | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| '-----------------------------' |\r\n" + "|                _                |\r\n"
+				+ "|              ( _ )              |\r\n" + " '-------------------------------'");
+
+		pause(1);
+		refresh();
+
+		System.out.print(" .-------------------------------.\r\n" + "|                o                |\r\n"
+				+ "| .-----------------------------. |\r\n" + "| |                             | |\r\n"
+				+ "| |" + phoneNameLine() + "| |\r\n" + "| |  --                         | |\r\n"
+				+ "| |                             | |\r\n" + "| |  Enter a password for your  | |\r\n"
+				+ "| |  WiFi network:              | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| |                             | |\r\n" + "| |                             | |\r\n"
+				+ "| '-----------------------------' |\r\n" + "|                _                |\r\n"
+				+ "|              ( _ )              |\r\n" + " '-------------------------------'");
+		
+		pause(5);
+		System.out.println(networkName);
+		waitForUser();
+
 	}
 
-	public void select() {
+	public String phoneNameLine() {
+		String result;
+		int length = 14 - getName().length();
+		
+		result = ("  " + getName() + "'s Smartphone");
+
+		for (int i = 0; i < length; i++)
+			result += (" ");
+		
+		return result;
+	}
+	
+	public void createWiFiPassword() {
+		System.out.println("| Password: ");
+		password = input.next();
 	}
 
-	// pause() pauses the program until the user is ready to continue
-	public void pause() {
-		System.out.print("\n\nEnter any key to continue... ");
-		String discard = input.nextLine();
-	}
-
-	// refresh() clears the console window by pushing old text
-	public void refresh() {
-		for (int i = 0; i < 100; i++)
-			System.out.println();
-	}
 }

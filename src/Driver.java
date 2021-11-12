@@ -1,29 +1,27 @@
 import graphics.*;
-import user.Director;
+import components.Director;
 import user.User;
 
 public class Driver {
 	public static void main(String[] args) {
-		// Menu initialized (graphics package)
-		Menu menu = new Menu();
+		// Core and Menu graphics initialized from the graphics package
+		Core core = new Core();
+		Menu menu = new Menu(core);
 		
-		// Smart Garage Security Simulator menu is printed
-		menu.refresh();
-		menu.title();
+		core.refresh();
 		
 		// User "user" created
-		User user = new User();
+		User user = new User(menu.getUserFirstName());
+		core.setName(user.getName());
+		System.out.println(user.getName());
+		System.out.println(core.getName());
+		core.waitForUser();
 		
 		// Create a Director to guide the user through the program
-		Director director = new Director(user);
-		
-		menu.pause();
+		Director director = new Director(core, user);
 
 		// Menu is looped after User creation process until user requests to terminate program
 		while(true) {
-			menu.refresh();
-			menu.title();
-			
 			// User is prompted for menu selection, 
 			menu.select();
 			director.go(menu.getSelection());

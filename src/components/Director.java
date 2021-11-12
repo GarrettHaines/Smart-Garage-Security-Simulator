@@ -1,13 +1,16 @@
-package user;
+package components;
 
-import components.dumb.*;
 import components.smart.*;
+import components.dumb.*;
 import graphics.*;
+import user.User;
 
 public class Director {
-	User user;
+	private Core core;
+	private User user;
 
-	public Director(User user) {
+	public Director(Core core, User user) {
+		this.core = core;
 		this.user = user;
 	}
 
@@ -42,7 +45,7 @@ public class Director {
 		user.wifi.addDevice(user.device);
 
 		// Print house graphic for Smart Simulation
-		SmartSimulation smartGraphics = new SmartSimulation(user);
+		SmartSimulation smartGraphics = new SmartSimulation();
 		smartGraphics.setupWiFi();
 		
 	}

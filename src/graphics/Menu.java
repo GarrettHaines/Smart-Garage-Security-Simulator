@@ -1,31 +1,40 @@
 package graphics;
 
-import java.util.Scanner;
-
-public class Menu {
-	Scanner input = new Scanner(System.in);
+public class Menu extends Core {
+	private Core core;
 	private int selection;
 	
+	public Menu(Core core) {
+		this.core = core;
+	}
+
 	// getSelection() returns selected menu option
 	public int getSelection() {
 		return selection;
 	}
-
-	// pause() pauses the program until the user is ready to continue
-	public void pause() {
-		System.out.print("\nEnter any key to continue... ");
-		String discard = input.nextLine();
-	}
-
-	// refresh() clears the console window by pushing old text
-	public void refresh() {
-		for (int i = 0; i < 100; i++)
-			System.out.println();
+	
+	public String getUserFirstName() {
+		String name;
+		
+		title();
+		System.out.println("Developed by Garrett Haines, Jacob Elwell, and Paul Gudan.\n\n\n");
+		System.out.print("Please enter your first name: ");
+		name = input.next();
+		name = Character.toUpperCase(name.charAt(0)) + name.substring(1, name.length());
+		core.refresh();
+		
+		title();
+		System.out.println("Welcome, " + name + "!\n\n");
+		core.waitForUser();
+		core.refresh();
+		
+		return name;
 	}
 
 	// Allows the User to chose to simulate the Smart Door Security System or
 	// attempt to breach the dumb door's security system
 	public void select() {
+		title();
 		System.out.println("1) Simulate a Smart Garage Security System Demonstration");
 		System.out.println("2) Simulate a Garage Security System Attack");
 		System.out.println("3) Exit program\n");
@@ -47,7 +56,7 @@ public class Menu {
 				+ "          / __| ___ __ _  _ _ _(_) |_ _  _  / __(_)_ __ _  _| |__ _| |_ ___ _ _ \r\n"
 				+ "          \\__ \\/ -_) _| || | '_| |  _| || | \\__ \\ | '  \\ || | / _` |  _/ _ \\ '_|\r\n"
 				+ "          |___/\\___\\__|\\_,_|_| |_|\\__|\\_, | |___/_|_|_|_\\_,_|_\\__,_|\\__\\___/_|  \r\n"
-				+ "                                      |__/                                      \n\n\n--");
+				+ "                                      |__/                                      \n\n\n--\n");
 	}
 
 }
