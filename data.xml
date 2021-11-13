@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>console</headerType>
-  <jar>C:\Users\16145\smart-garage-security-simulator\src\Smart Garage Security Simulator.jar</jar>
+  <jar>C:\Users\16145\smart-garage-security-simulator\Smart Garage Security Simulator.jar</jar>
   <outfile>C:\Users\16145\smart-garage-security-simulator\Smart Garage Security Simulator.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
