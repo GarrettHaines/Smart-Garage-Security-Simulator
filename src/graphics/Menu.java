@@ -17,14 +17,14 @@ public class Menu extends Core {
 		String name;
 		
 		title();
-		System.out.println("Developed by Garrett Haines, Jacob Elwell, and Paul Gudan.\n\n\n");
+		System.out.println("\nDeveloped by Garrett Haines, Jacob Elwell, and Paul Gudan.\n\n");
 		System.out.print("Please enter your first name: ");
 		name = input.next();
 		name = Character.toUpperCase(name.charAt(0)) + name.substring(1, name.length());
 		core.refresh();
 		
 		title();
-		System.out.println("Welcome, " + name + "!\n\n");
+		System.out.println("\nWelcome, " + name + "!\n");
 		core.waitForUser();
 		core.refresh();
 		

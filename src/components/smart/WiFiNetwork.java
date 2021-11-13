@@ -22,11 +22,11 @@ public class WiFiNetwork {
 	
 	
 	// Default configuration of a WifiNetwork object
-	public WiFiNetwork(String firstName) {
+	public WiFiNetwork(String name, String networkPassword) {
 		addressMAC = "37:b0:69:1e:45:01";
 		addressIP = "192.168.1.203";
-		networkName = firstName + "'s WiFi Network";
-		networkPassword = "REVISE LATER";
+		networkName = name + "'s WiFi Network";
+		this.networkPassword = networkPassword;
 	}
 	
 	

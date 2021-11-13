@@ -27,14 +27,14 @@ public class Core {
 	
 	// waitForUser() pauses the program until the user is ready to continue
 	public void waitForUser() {
-		System.out.print("\nPress 'ENTER' to continue... \n" + getName());
+		System.out.print("\nPress 'ENTER' to continue...");
 		String discard = input.nextLine();
 	}
 	
 	// pause()  pauses the program for desired amount of seconds
-	public void pause(int seconds) {
+	public void pause(int milliseconds) {
 		try {
-			TimeUnit.SECONDS.sleep(seconds);
+			TimeUnit.MILLISECONDS.sleep(milliseconds);
 		} catch (InterruptedException e) {}
 	}
 	
