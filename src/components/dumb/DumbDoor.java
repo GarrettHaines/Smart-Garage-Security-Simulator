@@ -10,7 +10,7 @@ public class DumbDoor {
 	
 	public DumbDoor(String firstName) {
 		frequency = 375;  // in MHz
-		name = firstName + "'s Dumb Door";
+		name = firstName + "'s Dumb Garage Door";
 	}
 	
 }
