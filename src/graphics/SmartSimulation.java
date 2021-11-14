@@ -11,7 +11,7 @@ public class SmartSimulation extends Core {
 	}
 	
 	
-	public void go() {
+	public void setUp() {
 		setUpNetwork();
 		displayNetworkDetails();
 		displayDeviceDetails();

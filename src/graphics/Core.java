@@ -7,6 +7,10 @@ public class Core {
 	public Scanner input = new Scanner(System.in);
 	private String name;
 	
+	public Core() {
+		refresh();
+	}
+	
 	
 	// setName()  creates a copy of the user's first name
 	public void setName(String firstName) {

@@ -1,12 +1,7 @@
 package graphics;
 
 public class Menu extends Core {
-	private Core core;
 	private int selection;
-	
-	public Menu(Core core) {
-		this.core = core;
-	}
 
 	// getSelection() returns selected menu option
 	public int getSelection() {
@@ -21,12 +16,12 @@ public class Menu extends Core {
 		System.out.print("Please enter your first name: ");
 		name = input.next();
 		name = Character.toUpperCase(name.charAt(0)) + name.substring(1, name.length());
-		core.refresh();
+		refresh();
 		
 		title();
 		System.out.println("\nWelcome, " + name + "!\n");
-		core.waitForUser();
-		core.refresh();
+		waitForUser();
+		refresh();
 		
 		return name;
 	}
