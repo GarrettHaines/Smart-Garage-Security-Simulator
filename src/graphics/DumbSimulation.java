@@ -4,7 +4,7 @@ public class DumbSimulation extends Core
 {
 	private String name; // User's name
 	private String passcodeString; // String used for PIN input
-	private int passcode; // Final, error-free four digit PIN
+	private int passcode; // Final, error-free 4-digit PIN
 	private int attackerPasscode; // The PIN the attacker opened the garage door with (-1 for failure to open door)
 	
 	public DumbSimulation(String name)
@@ -15,7 +15,6 @@ public class DumbSimulation extends Core
 	public void setUp()
 	{
 		passcode = getPIN(); // Get the garage door PIN from the user
-		explain(); // Optionally, explain the method used to attack the dumb garage door
 		attackerPasscode = attack(); // Trying various PINs to attempt to open the dumb garage door
 		result(attackerPasscode); // Outputs the result of the attacker's attempt
 	}
@@ -25,11 +24,17 @@ public class DumbSimulation extends Core
 		passcode = -1;
 		while (passcode == -1) // Loop until 4 digit PIN is entered
 		{
-			System.out.println("Please enter the 4-digit PIN you would like to use for your garage door!");
+			printTransmitter();
+			System.out.println("You have been given a programmable radio transmitter.\n\n");
+			explain(); // Optionally, explain the method used to attack the dumb garage door
+			
+			printDumbDoor();
+			System.out.println("Please enter a 4-digit PIN you would like to use for your garage door.");
 			System.out.print("> PIN: ");
 			passcodeString = input.next();
 
 			passcode = convertToInt(passcodeString); // Checks user input string to ensure proper length and that the characters are digits
+			refresh();
 		}
 		return passcode;
 	}
@@ -59,20 +64,43 @@ public class DumbSimulation extends Core
 	
 	public void explain() // Explanation of garage door program
 	{
-		System.out.println("Would you like an explanation? Y/N");
+		System.out.print("Would you like an explanation? (Y/N): ");
 		char explanation = input.next().charAt(0);
-		if ((explanation == 'Y') || (explanation == 'y')) // Only explains if Y or y entered, default is to not explain. This can be changed as desired.
+		refresh();
+		if ((explanation != 'N') && (explanation != 'n'))
 		{
-			System.out.println("Most garage door openers use frequencies from 300 MHz to 390 MHz.");
+			String discard = input.nextLine();
+			printTransmitter();
+			System.out.println("Many homes utilize a simple radio receiver garage opener with a programmable 4-digit PIN.");
+			System.out.println("Most garage door openers transmit signals on frequencies from 300 MHz to 390 MHz.");
 			System.out.println("To activate the garage door opener, the remote must use a frequency matching the door opener's frequency.");
 			System.out.println("The acceptable difference between the two frequencies depends on a number of factors.");
 			System.out.println("However, it is possible to cycle through all frequencies in the typical garage door range.");
-			System.out.println("At each frequency, all possible PINs must be tried. A correct frequency and PIN combination opens the door.");
-			System.out.println("This is the method that the attacker will employ against the garage door, a brute force method.");
+			waitForUser();
+			printTransmitter();
+			System.out.println("The attacker will create a simple program for the transmitter's microprocessor.");
+			System.out.println("This program attempts to transmit a binary radio signal to the garage door's receiver.");
+			System.out.println("However, any given garage door could operate on a signal within 90 MHz.");
+			System.out.println("So, the attacker will begin by transmitting every possible 4-digit PIN combination at 300 MHz.");
+			System.out.println("The program will continue this process at increasing frequencies.");
+			System.out.println("At each frequency, all possible PIN's must be transmitted. A correct frequency and PIN combination opens the door.");
+			waitForUser();
+			printTransmitter();
+			System.out.println("This is the approach that an attacker may employ against the garage door; it is a brute force method.");
+			System.out.println("Our transmitter and garage door receiver will operate on 375 MHz.");
+			System.out.println("On any given frequency, there are...\n\n\n (4)\n10^  =  10,000 possible PIN's.\n");
+			waitForUser();
+			printTransmitter();
+			System.out.println("Assuming the attacker sends the signal at varying frequencies with an interval of 1 MHz,");
+			System.out.println("from 300 MHz to 390 MHz, there are...\n\n\n (10,000)\n90^        =  1.782e+195424 possible combinations.\n");
+			waitForUser();
+			printTransmitter();
+			System.out.println("Needless to say, this is a time consuming process.");
+			System.out.println("But perhaps shorter than you might think...");
+			waitForUser();
+			printTransmitter();
 			System.out.println("For the purpose of this project, the frequency is not varied. In a real situation, it would take longer for the attacker");
-			System.out.print("to open the door, as they would need to try all PINs on various frequencies.");
-
-			String discard = input.nextLine();
+			System.out.println("to open the door, as they would have to attempt to transmit all possible PIN's on various frequencies.");
 			waitForUser();
 		}
 	}
@@ -99,7 +127,15 @@ public class DumbSimulation extends Core
 	
 	public void displayAttackAttempt(int testPasscode) // Function to display the attacker's current PIN attempt
 	{
-		System.out.println("The attacker is trying the PIN " + testPasscode + "...");
+		String formattedPIN = String.format("%04d", testPasscode);
+		printTransmitter(formattedPIN);
+		System.out.println("The attacker is trying the PIN " + formattedPIN + "...");
+		pauseNano(1);
+		
+		if(testPasscode == passcode)
+			pause(100);
+		
+		refresh();
 	}
 	
 	public void result(int attackerPasscode) // Brief summary of the result of the attacker's attempt to open the dumb garage door
@@ -115,11 +151,200 @@ public class DumbSimulation extends Core
 		}
 		else
 		{
-			System.out.println("The attacker was able to open the garage door! The PIN used was " + attackerPasscode + ".");
-			System.out.println();
-			System.out.println("Returning to main menu.");
-			String discard = input.nextLine();
+			printDumbDoorOpening();
 			waitForUser();
 		}
 	}
+	
+	public void printTransmitter() {
+		System.out.println("            /\\ o \r\n"
+				+ "     o     /_ /~~/\r\n"
+				+ "      \\      /\\/\r\n"
+				+ "       \\    /   \r\n"
+				+ "        \\  /   \r\n"
+				+ "  ,----------------,\r\n"
+				+ "  | ,----------,   |\r\n"
+				+ "  | |  ||||||  | O |\r\n"
+				+ "  | |-MMMMMMMM-| x |\r\n"
+				+ "  | |  ||||||  |  _|\r\n"
+				+ "  | |          |  _|\r\n"
+				+ "  | |   XXXX   |   |\r\n"
+				+ "  | |__________| RT|\r\n"
+				+ "  |________________|\n\n");
+	}
+	
+	public void printTransmitter(String PIN) {
+		System.out.println("            /\\ o \r\n"
+				+ "     o     /_ /~~/\r\n"
+				+ "      \\      /\\/\r\n"
+				+ "       \\    /   \r\n"
+				+ "        \\  /   \r\n"
+				+ "  ,----------------,\r\n"
+				+ "  | ,----------,   |\r\n"
+				+ "  | |  ||||||  | O |\r\n"
+				+ "  | |-MMMMMMMM-| x |\r\n"
+				+ "  | |  ||||||  |  _|\r\n"
+				+ "  | |          |  _|\r\n"
+				+ "  | |   " + PIN + "   |   |\r\n"
+				+ "  | |__________| RT|\r\n"
+				+ "  |________________|\n\n");
+	}
+	
+	public void printDumbDoor() {
+		System.out.println( 
+				"                                     /\\\r\n" + "                                /\\  //\\\\\r\n"
+						+ "                         /\\    //\\\\///\\\\\\        /\\\r\n"
+						+ "                        //\\\\  ///\\////\\\\\\\\  /\\  //\\\\\r\n"
+						+ "           /\\          /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\\r\n"
+						+ "          / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\\r\n"
+						+ "         /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       ^\r\n"
+						+ "        /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\\r\n"
+						+ "       / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o\\\r\n"
+						+ "      / ^^  ^ ^ ^\\  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\\ ^ ^ \\ /|o|||\\               \r\n"
+						+ "     /  ^  ^^ ^ ^  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/__\\  ^  /|||||o|\\             \r\n"
+						+ "    /^ ^  ^ ^^  ^    ||________||||(_)|||||||___|||||    /||o||||||\\\r\n"
+						+ "   / ^   ^   ^    ^  ||________||||  o|||||||___|||||        | |      \r\n"
+						+ "  / ^ ^ ^  ^  ^  ^   ||________||||___|||||||||||||||mmmnmnmm| |mmnmmmm \r\n"
+						+ " nmnmmmmmnmmmnmmmnmmmmmmmmmnnmmmmmmmmmmmmmnmmmmmnmmmmmmmmmnnmmmmnmmmnmmn\n\n\n");
+	}
+	
+	public void printDumbDoorOpening() {
+		System.out.println("              \n\n");
+		System.out.println( 
+				"                                     /\\\r\n" + "                                /\\  //\\\\\r\n"
+						+ "                         /\\    //\\\\///\\\\\\        /\\\r\n"
+						+ "                        //\\\\  ///\\////\\\\\\\\  /\\  //\\\\\r\n"
+						+ "           /\\          /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\\r\n"
+						+ "          / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\\r\n"
+						+ "         /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       ^\r\n"
+						+ "        /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\\r\n"
+						+ "       / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o\\\r\n"
+						+ "      / ^^  ^ ^ ^\\  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\\ ^ ^ \\ /|o|||\\               \r\n"
+						+ "     /  ^  ^^ ^ ^  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/__\\  ^  /|||||o|\\             \r\n"
+						+ "    /^ ^  ^ ^^  ^    ||________||||(_)|||||||___|||||    /||o||||||\\\r\n"
+						+ "   / ^   ^   ^    ^  ||________||||  o|||||||___|||||        | |      \r\n"
+						+ "  / ^ ^ ^  ^  ^  ^   ||________||||___|||||||||||||||mmmnmnmm| |mmnmmmm \r\n"
+						+ " nmnmmmmmnmmmnmmmnmmmmmmmmmnnmmmmmmmmmmmmmnmmmmmnmmmmmmmmmnnmmmmnmmmnmmn\n\n\n");
+		System.out.print("The attacker was able to open the garage door! The PIN used was " + attackerPasscode + ".\n");
+		pause(2000);
+		refresh();
+		System.out.println("              \n\n");
+		System.out.println( 
+				"                                     /\\\r\n" + "                                /\\  //\\\\\r\n"
+						+ "                         /\\    //\\\\///\\\\\\        /\\\r\n"
+						+ "                        //\\\\  ///\\////\\\\\\\\  /\\  //\\\\\r\n"
+						+ "           /\\          /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\\r\n"
+						+ "          / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\\r\n"
+						+ "         /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       ^\r\n"
+						+ "        /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\\r\n"
+						+ "       / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o\\\r\n"
+						+ "      / ^^  ^ ^ ^\\  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\\ ^ ^ \\ /|o|||\\               \r\n"
+						+ "     /  ^  ^^ ^ ^  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/__\\  ^  /|||||o|\\             \r\n"
+						+ "    /^ ^  ^ ^^  ^    ||________||||(_)|||||||___|||||    /||o||||||\\\r\n"
+						+ "   / ^   ^   ^    ^  ||________||||  o|||||||___|||||        | |      \r\n"
+						+ "  / ^ ^ ^  ^  ^  ^   ||_/_\\____||||___|||||||||||||||mmmnmnmm| |mmnmmmm \r\n"
+						+ " nmnmmmmmnmmmnmmmnmmmmmmmmmnnmmmmmmmmmmmmmnmmmmmnmmmmmmmmmnnmmmmnmmmnmmn\n\n\n");
+		System.out.print("The attacker was able to open the garage door! The PIN used was " + attackerPasscode + ".\n");
+		pause(500);
+		refresh();
+		
+		System.out.println("              \n\n");
+		System.out.println( 
+				"                                     /\\\r\n" + "                                /\\  //\\\\\r\n"
+						+ "                         /\\    //\\\\///\\\\\\        /\\\r\n"
+						+ "                        //\\\\  ///\\////\\\\\\\\  /\\  //\\\\\r\n"
+						+ "           /\\          /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\\r\n"
+						+ "          / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\\r\n"
+						+ "         /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       ^\r\n"
+						+ "        /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\\r\n"
+						+ "       / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o\\\r\n"
+						+ "      / ^^  ^ ^ ^\\  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\\ ^ ^ \\ /|o|||\\               \r\n"
+						+ "     /  ^  ^^ ^ ^  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/__\\  ^  /|||||o|\\             \r\n"
+						+ "    /^ ^  ^ ^^  ^    ||________||||(_)|||||||___|||||    /||o||||||\\\r\n"
+						+ "   / ^   ^   ^    ^  || /|\\    ||||  o|||||||___|||||        | |      \r\n"
+						+ "  / ^ ^ ^  ^  ^  ^   ||_/_\\____||||___|||||||||||||||mmmnmnmm| |mmnmmmm \r\n"
+						+ " nmnmmmmmnmmmnmmmnmmmmmmmmmnnmmmmmmmmmmmmmnmmmmmnmmmmmmmmmnnmmmmnmmmnmmn\n\n\n");
+		System.out.print("The attacker was able to open the garage door! The PIN used was " + attackerPasscode + ".\n");
+		pause(500);
+		refresh();
+		
+		System.out.println("              \n\n");
+		System.out.println( 
+				"                                     /\\\r\n" + "                                /\\  //\\\\\r\n"
+						+ "                         /\\    //\\\\///\\\\\\        /\\\r\n"
+						+ "                        //\\\\  ///\\////\\\\\\\\  /\\  //\\\\\r\n"
+						+ "           /\\          /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\\r\n"
+						+ "          / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\\r\n"
+						+ "         /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       ^\r\n"
+						+ "        /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\\r\n"
+						+ "       / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o\\\r\n"
+						+ "      / ^^  ^ ^ ^\\  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\\ ^ ^ \\ /|o|||\\               \r\n"
+						+ "     /  ^  ^^ ^ ^  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/__\\  ^  /|||||o|\\             \r\n"
+						+ "    /^ ^  ^ ^^  ^    ||  o     ||||(_)|||||||___|||||    /||o||||||\\\r\n"
+						+ "   / ^   ^   ^    ^  || /|\\    ||||  o|||||||___|||||        | |      \r\n"
+						+ "  / ^ ^ ^  ^  ^  ^   ||_/_\\____||||___|||||||||||||||mmmnmnmm| |mmnmmmm \r\n"
+						+ " nmnmmmmmnmmmnmmmnmmmmmmmmmnnmmmmmmmmmmmmmnmmmmmnmmmmmmmmmnnmmmmnmmmnmmn\n\n\n");
+		System.out.print("The attacker was able to open the garage door! The PIN used was " + attackerPasscode + ".\n");
+		pause(1000);
+		refresh();
+		
+		System.out.println("              \n\n");
+		System.out.println( 
+				"                                     /\\\r\n" + "                                /\\  //\\\\\r\n"
+						+ "                         /\\    //\\\\///\\\\\\        /\\\r\n"
+						+ "                        //\\\\  ///\\////\\\\\\\\  /\\  //\\\\\r\n"
+						+ "           /\\          /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\\r\n"
+						+ "          / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\\r\n"
+						+ "         /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       ^\r\n"
+						+ "        /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\\r\n"
+						+ "       / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o\\\r\n"
+						+ "      / ^^  ^ ^ ^\\  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\\ ^ ^ \\ /|o|||\\               \r\n"
+						+ "     /  ^  ^^ ^ ^  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/__\\  ^  /|||||o|\\             \r\n"
+						+ "    /^ ^  ^ ^^  ^    ||  o $!@#||||(_)|||||||___|||||    /||o||||||\\\r\n"
+						+ "   / ^   ^   ^    ^  || /|\\ -' ||||  o|||||||___|||||        | |      \r\n"
+						+ "  / ^ ^ ^  ^  ^  ^   ||_/_\\____||||___|||||||||||||||mmmnmnmm| |mmnmmmm \r\n"
+						+ " nmnmmmmmnmmmnmmmnmmmmmmmmmnnmmmmmmmmmmmmmnmmmmmnmmmmmmmmmnnmmmmnmmmnmmn\n\n\n");
+		System.out.println("The attacker was able to open the garage door! The PIN used was " + attackerPasscode + ".");
+		pause(1000);
+		refresh();
+		String discard = input.nextLine();
+		
+		System.out.println("              \n\n");
+		System.out.println( 
+				"                                     /\\\r\n" + "                                /\\  //\\\\\r\n"
+						+ "                         /\\    //\\\\///\\\\\\        /\\\r\n"
+						+ "                        //\\\\  ///\\////\\\\\\\\  /\\  //\\\\\r\n"
+						+ "           /\\          /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\\r\n"
+						+ "          / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\\r\n"
+						+ "         /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       ^\r\n"
+						+ "        /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\\r\n"
+						+ "       / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o\\\r\n"
+						+ "      / ^^  ^ ^ ^\\  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\\ ^ ^ \\ /|o|||\\               \r\n"
+						+ "     /  ^  ^^ ^ ^  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/__\\  ^  /|||||o|\\             \r\n"
+						+ "    /^ ^  ^ ^^  ^    ||  o     ||||(_)|||||||___|||||    /||o||||||\\\r\n"
+						+ "   / ^   ^   ^    ^  || /|\\    ||||  o|||||||___|||||        | |      \r\n"
+						+ "  / ^ ^ ^  ^  ^  ^   ||_/_\\____||||___|||||||||||||||mmmnmnmm| |mmnmmmm \r\n"
+						+ " nmnmmmmmnmmmnmmmnmmmmmmmmmnnmmmmmmmmmmmmmnmmmmmnmmmmmmmmmnnmmmmnmmmnmmn\n\n\n");
+		System.out.print("The attacker was able to open the garage door! The PIN used was " + attackerPasscode + ".");
+		waitForUser();
+		
+		System.out.println("              \n\n");
+		System.out.println( 
+				"                                     /\\\r\n" + "                                /\\  //\\\\\r\n"
+						+ "                         /\\    //\\\\///\\\\\\        /\\\r\n"
+						+ "                        //\\\\  ///\\////\\\\\\\\  /\\  //\\\\\r\n"
+						+ "           /\\          /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\\r\n"
+						+ "          / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\\r\n"
+						+ "         /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       ^\r\n"
+						+ "        /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\\r\n"
+						+ "       / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o\\\r\n"
+						+ "      / ^^  ^ ^ ^\\  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\\ ^ ^ \\ /|o|||\\               \r\n"
+						+ "     /  ^  ^^ ^ ^  /_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/__\\  ^  /|||||o|\\             \r\n"
+						+ "    /^ ^  ^ ^^  ^    ||  o     ||||(_)|||||||___|||||    /||o||||||\\\r\n"
+						+ "   / ^   ^   ^    ^  || /|\\    ||||  o|||||||___|||||        | |      \r\n"
+						+ "  / ^ ^ ^  ^  ^  ^   ||_/_\\____||||___|||||||||||||||mmmnmnmm| |mmnmmmm \r\n"
+						+ " nmnmmmmmnmmmnmmmnmmmmmmmmmnnmmmmmmmmmmmmmnmmmmmnmmmmmmmmmnnmmmmnmmmnmmn\n\n\n");
+		System.out.print("Perhaps you should invest in a smarter garage door!");
+	}
+	
 }

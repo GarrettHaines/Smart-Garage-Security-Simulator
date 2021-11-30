@@ -27,23 +27,26 @@ public class Director {
 	// smartSimulation() begins the program's Smart Garage Security System Simulation
 	public void smartSimulation() {
 		// Create user's objects to...
-
-		// simulate a mobile device capable of running the Authenticator application
-		user.device = new MobileDevice(name);
-
-		// print Smart Door Security System graphic user interface
-		SmartSimulation smartGraphics = new SmartSimulation(name);
-		smartGraphics.setUp();	// Begin WiFi network setup process and display network/device details to user
-
-		// simulate the user's home WiFi network and connects automatically to user's mobile device when in range
-		user.wifi = new WiFiNetwork(name, smartGraphics.getNetworkPassword());
-
-		// simulate the Smart Garage Door, which connects to user's WiFi network and opens on Authenticator application's request
-		user.smartDoor = new SmartDoor(name, user.wifi);
-
 		
-		// Add the user's mobile device to a list of authenticated devices with credentials to login automatically when in range
-		user.wifi.addDevice(user.device);
+			// simulate a mobile device capable of running the Authenticator application
+			user.smartphone = new Device(name);
+			
+			// print Smart Door Security System graphic user interface and set up WiFi Network
+			SmartSimulation smartGraphics = new SmartSimulation(name);
+			smartGraphics.setUpNetwork();	// Begin WiFi network setup process and display network/device details to user
+	
+			// simulate the user's home WiFi network and connects automatically to user's mobile device when in range
+			user.wifi = new WiFiNetwork(name, smartGraphics.getNetworkPassword());
+	
+			// simulate the Smart Garage Door, which connects to user's WiFi network and opens on Authenticator application's request
+			user.smartDoor = new SmartDoor(name, user.wifi);
+			
+		
+		// Add the user's mobile device and Smart Garage to a list of authenticated devices with credentials to login automatically when in range
+		user.wifi.addDevice(user.smartphone);
+		user.wifi.addDevice(user.smartDoor);
+		
+		smartGraphics.setUpSmartGarage();	// Begin Smart Garage setup process and display Smart Door/Authenticator details to user
 		
 	}
 

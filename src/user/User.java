@@ -12,7 +12,7 @@ public class User {
 	public DumbDoor dumbDoor;
 	
 	// User's objects for testing the security system
-	public MobileDevice device;
+	public Device smartphone;
 	public WiFiNetwork wifi;
 	
 	// User's object for attempting a security breach

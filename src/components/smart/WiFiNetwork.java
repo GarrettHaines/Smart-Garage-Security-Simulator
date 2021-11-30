@@ -17,8 +17,9 @@ public class WiFiNetwork {
 	private String networkName;
 	private String networkPassword;
 	
+	
 	// A router has a list of authenticated devices that have credentials to access the network
-	private ArrayList<MobileDevice> networkDevices = new ArrayList<MobileDevice>();
+	private ArrayList<Device> networkDevices = new ArrayList<Device>();
 	
 	
 	// Default configuration of a WifiNetwork object
@@ -31,7 +32,7 @@ public class WiFiNetwork {
 	
 	
 	// addDevice allows for a new mobile device to be added to the list of authenticated devices
-	public void addDevice(MobileDevice newDevice) {
+	public void addDevice(Device newDevice) {
 		networkDevices.add(newDevice);
 	}
 
